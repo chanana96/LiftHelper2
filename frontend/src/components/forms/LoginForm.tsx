@@ -9,8 +9,8 @@ import Box from '@mui/material/Box';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 type Inputs = {
-	example: string;
-	exampleRequired: string;
+	email: string;
+	password: string;
 };
 
 export const LoginForm = ({ onSubmit }) => {
@@ -47,7 +47,8 @@ export const LoginForm = ({ onSubmit }) => {
 								}}>
 								<Grid size={{ md: 12, xs: 8 }}>
 									<TextField
-										label='Username or email'
+										{...register('email', { required: true })}
+										label='Email'
 										variant='outlined'
 										fullWidth
 										required
@@ -59,6 +60,7 @@ export const LoginForm = ({ onSubmit }) => {
 
 								<Grid size={{ md: 12, xs: 8 }}>
 									<TextField
+										{...register('password', { required: true, minLength: 8 })}
 										label='Password'
 										variant='outlined'
 										fullWidth

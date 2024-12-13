@@ -11,8 +11,10 @@ import Box from '@mui/material/Box';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
 type Inputs = {
-	example: string;
-	exampleRequired: string;
+	email: string;
+	password: string;
+	confirm_password: string;
+	allow_emails: boolean;
 };
 
 export const SignupForm = ({ onSubmit }) => {
@@ -49,18 +51,7 @@ export const SignupForm = ({ onSubmit }) => {
 								}}>
 								<Grid size={{ md: 12, xs: 8 }}>
 									<TextField
-										label='Username'
-										variant='outlined'
-										fullWidth
-										required
-										autoFocus
-										autoComplete='username'
-										type='text'
-									/>
-								</Grid>
-
-								<Grid size={{ md: 12, xs: 8 }}>
-									<TextField
+										{...register('email', { required: true })}
 										label='Email'
 										variant='outlined'
 										fullWidth
@@ -72,6 +63,7 @@ export const SignupForm = ({ onSubmit }) => {
 
 								<Grid size={{ md: 12, xs: 8 }}>
 									<TextField
+										{...register('password', { required: true, minLength: 8 })}
 										label='Password'
 										variant='outlined'
 										fullWidth
@@ -82,6 +74,10 @@ export const SignupForm = ({ onSubmit }) => {
 								</Grid>
 								<Grid size={{ md: 12, xs: 8 }}>
 									<TextField
+										{...register('confirm_password', {
+											required: true,
+											minLength: 8,
+										})}
 										label='Confirm Password'
 										variant='outlined'
 										fullWidth
@@ -93,7 +89,12 @@ export const SignupForm = ({ onSubmit }) => {
 								<Grid size={{ md: 12, xs: 8 }}>
 									<FormControlLabel
 										control={
-											<Checkbox value='allowExtraEmails' color='primary' />
+											<Checkbox
+												{...register('allow_emails', {
+													setValueAs: (value) => value === true,
+												})}
+												color='primary'
+											/>
 										}
 										label='I want to receive inspiration, marketing promotions and updates via email.'
 									/>
