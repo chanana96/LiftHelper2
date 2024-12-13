@@ -6,5 +6,6 @@ namespace api.Models
         public string? Email { get; set; }
         public string? HashedPassword { get; set; }
         public DateTime CreatedAt { get; set; }
+        public bool AllowEmails { get; set; }
     }
 }

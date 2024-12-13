@@ -7,13 +7,18 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useLogin } from 'lib/auth';
 
 type Inputs = {
-	email: string;
-	password: string;
+	Email: string;
+	Password: string;
 };
 
-export const LoginForm = ({ onSubmit }) => {
+export const LoginForm = ({ onSuccess }) => {
+	const registering = useLogin({ onSuccess });
+	const submitHandler: SubmitHandler<Inputs> = (inputValues) => {
+		registering.mutate(inputValues);
+	};
 	const {
 		register,
 		handleSubmit,
@@ -24,7 +29,7 @@ export const LoginForm = ({ onSubmit }) => {
 	return (
 		<>
 			<Container maxWidth='sm'>
-				<form onSubmit={handleSubmit(onSubmit)} style={{ marginTop: '5vh' }}>
+				<form onSubmit={handleSubmit(submitHandler)} style={{ marginTop: '5vh' }}>
 					<Box
 						sx={{
 							boxShadow: 3,
@@ -47,7 +52,7 @@ export const LoginForm = ({ onSubmit }) => {
 								}}>
 								<Grid size={{ md: 12, xs: 8 }}>
 									<TextField
-										{...register('email', { required: true })}
+										{...register('Email', { required: true })}
 										label='Email'
 										variant='outlined'
 										fullWidth
@@ -60,7 +65,7 @@ export const LoginForm = ({ onSubmit }) => {
 
 								<Grid size={{ md: 12, xs: 8 }}>
 									<TextField
-										{...register('password', { required: true, minLength: 8 })}
+										{...register('Password', { required: true, minLength: 8 })}
 										label='Password'
 										variant='outlined'
 										fullWidth

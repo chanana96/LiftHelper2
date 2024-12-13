@@ -9,15 +9,21 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useSignup } from 'lib/auth';
 
 type Inputs = {
-	email: string;
-	password: string;
-	confirm_password: string;
-	allow_emails: boolean;
+	Email: string;
+	Password: string;
+	ConfirmPassword: string;
+	AllowEmails: boolean;
 };
 
-export const SignupForm = ({ onSubmit }) => {
+export const SignupForm = ({ onSuccess }) => {
+	const registering = useSignup({ onSuccess });
+	const submitHandler: SubmitHandler<Inputs> = (inputValues) => {
+		console.log(inputValues);
+		registering.mutate(inputValues);
+	};
 	const {
 		register,
 		handleSubmit,
@@ -28,7 +34,7 @@ export const SignupForm = ({ onSubmit }) => {
 	return (
 		<>
 			<Container maxWidth='sm'>
-				<form onSubmit={handleSubmit(onSubmit)} style={{ marginTop: '5vh' }}>
+				<form onSubmit={handleSubmit(submitHandler)} style={{ marginTop: '5vh' }}>
 					<Box
 						sx={{
 							boxShadow: 3,
@@ -51,7 +57,7 @@ export const SignupForm = ({ onSubmit }) => {
 								}}>
 								<Grid size={{ md: 12, xs: 8 }}>
 									<TextField
-										{...register('email', { required: true })}
+										{...register('Email', { required: true })}
 										label='Email'
 										variant='outlined'
 										fullWidth
@@ -63,7 +69,7 @@ export const SignupForm = ({ onSubmit }) => {
 
 								<Grid size={{ md: 12, xs: 8 }}>
 									<TextField
-										{...register('password', { required: true, minLength: 8 })}
+										{...register('Password', { required: true, minLength: 8 })}
 										label='Password'
 										variant='outlined'
 										fullWidth
@@ -74,7 +80,7 @@ export const SignupForm = ({ onSubmit }) => {
 								</Grid>
 								<Grid size={{ md: 12, xs: 8 }}>
 									<TextField
-										{...register('confirm_password', {
+										{...register('ConfirmPassword', {
 											required: true,
 											minLength: 8,
 										})}
@@ -90,7 +96,7 @@ export const SignupForm = ({ onSubmit }) => {
 									<FormControlLabel
 										control={
 											<Checkbox
-												{...register('allow_emails', {
+												{...register('AllowEmails', {
 													setValueAs: (value) => value === true,
 												})}
 												color='primary'

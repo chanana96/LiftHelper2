@@ -1,19 +1,20 @@
 import { SignupForm } from 'components/forms/SignupForm';
-import { SubmitHandler } from 'react-hook-form';
-
-type Inputs = {
-	example: string;
-	exampleRequired: string;
-};
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { paths } from 'config/paths';
 
 export const Signup = () => {
-	const onSubmit: SubmitHandler<Inputs> = async (data) => {
-		console.log(data);
+	const navigate = useNavigate();
+	const [searchParams] = useSearchParams();
+	const redirectTo = searchParams.get('redirectTo');
+	const onSuccess = () => {
+		navigate(`${redirectTo ? `${redirectTo}` : paths.app.dashboard.path}`, {
+			replace: true,
+		});
 	};
 
 	return (
 		<>
-			<SignupForm onSubmit={onSubmit} />
+			<SignupForm onSuccess={onSuccess} />
 		</>
 	);
 };

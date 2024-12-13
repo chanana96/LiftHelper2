@@ -1,16 +1,14 @@
 export const paths = {
-
-	auth:{
-		signup:{
-			path:'/auth/signup'
+	auth: {
+		signup: {
+			path: '/auth/signup',
 		},
-		login:{
-			path:'/auth/login'
-		}
+		login: {
+			path: '/auth/login',
+		},
 	},
-	app:{
-		muscles:{
-			
-		}
-	}
-}
+	app: {
+		muscles: {},
+		dashboard: { path: '/app/dashboard' },
+	},
+};
