@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -10,31 +9,36 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSignup } from 'lib/auth';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { signupInputSchema } from 'types/api';
+import { z } from 'zod';
+import { useFormAlert } from 'hooks/useFormAlert';
+import { FormAlert } from 'components/forms/Alert';
 
-type Inputs = {
-	Email: string;
-	Password: string;
-	ConfirmPassword: string;
-	AllowEmails: boolean;
-};
+type Inputs = z.infer<typeof signupInputSchema>;
 
-export const SignupForm = ({ onSuccess }) => {
-	const registering = useSignup({ onSuccess });
+export const SignupForm = ({ onSuccess, onError }) => {
+	const form = useForm<Inputs>({
+		resolver: zodResolver(signupInputSchema),
+	});
+
+	const { register, handleSubmit, setError } = form;
+
+	const formAlert = useFormAlert(form);
+
+	const registering = useSignup({ onSuccess, onError: onError(setError) });
 	const submitHandler: SubmitHandler<Inputs> = (inputValues) => {
-		console.log(inputValues);
 		registering.mutate(inputValues);
 	};
-	const {
-		register,
-		handleSubmit,
-		watch,
-		formState: { errors },
-	} = useForm<Inputs>();
-
 	return (
 		<>
 			<Container maxWidth='sm'>
 				<form onSubmit={handleSubmit(submitHandler)} style={{ marginTop: '5vh' }}>
+					<FormAlert
+						show={formAlert.hasErrors}
+						message={formAlert.errorMessage}
+						onClose={formAlert.handleClearErrors}
+					/>
 					<Box
 						sx={{
 							boxShadow: 3,
@@ -57,7 +61,7 @@ export const SignupForm = ({ onSuccess }) => {
 								}}>
 								<Grid size={{ md: 12, xs: 8 }}>
 									<TextField
-										{...register('Email', { required: true })}
+										{...register('Email')}
 										label='Email'
 										variant='outlined'
 										fullWidth
@@ -69,7 +73,7 @@ export const SignupForm = ({ onSuccess }) => {
 
 								<Grid size={{ md: 12, xs: 8 }}>
 									<TextField
-										{...register('Password', { required: true, minLength: 8 })}
+										{...register('Password')}
 										label='Password'
 										variant='outlined'
 										fullWidth
@@ -80,10 +84,7 @@ export const SignupForm = ({ onSuccess }) => {
 								</Grid>
 								<Grid size={{ md: 12, xs: 8 }}>
 									<TextField
-										{...register('ConfirmPassword', {
-											required: true,
-											minLength: 8,
-										})}
+										{...register('ConfirmPassword')}
 										label='Confirm Password'
 										variant='outlined'
 										fullWidth

@@ -5,22 +5,9 @@ using api.Models;
 using api.Data;
 using api.Services;
 using System.ComponentModel.DataAnnotations;
-
+using System.Text.Json;
 namespace api.Controllers
 {
-    public class RequestBody
-    {
-        [Required]
-        public string? Email { get; set; }
-
-        [Required]
-        public string? Password { get; set; }
-
-        [Required]
-        public string? ConfirmPassword { get; set; }
-
-        public bool? AllowEmails { get; set; }
-    }
 
     [ApiController]
     [Route("auth")]
@@ -29,16 +16,22 @@ namespace api.Controllers
         private readonly IUserService _userService = userService;
 
         [HttpPost("signup")]
-        public async Task<IActionResult> Post([FromBody] RequestBody body)
+        public async Task<IActionResult> Post([FromBody] SignupRequest request)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            Console.WriteLine(body);
-            await _userService.SignupAsync(body);
-            return Ok();
+            try
+            {
+                var user = await _userService.SignupAsync(request);
+                return Ok(user);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
         }
     }

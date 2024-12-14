@@ -11,10 +11,15 @@ export const Signup = () => {
 			replace: true,
 		});
 	};
-
+	const onError = (setError) => (errorMessage: string) => {
+		setError('root', {
+			type: 'custom',
+			message: errorMessage,
+		});
+	};
 	return (
 		<>
-			<SignupForm onSuccess={onSuccess} />
+			<SignupForm onSuccess={onSuccess} onError={onError} />
 		</>
 	);
 };

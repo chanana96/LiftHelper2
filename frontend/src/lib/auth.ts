@@ -10,13 +10,22 @@ export const getUserQueryOptions = () => {
 	});
 };
 
-export const useSignup = ({ onSuccess }: { onSuccess?: () => void }) => {
+export const useSignup = ({
+	onSuccess,
+	onError,
+}: {
+	onSuccess?: () => void;
+	onError?: (errorMessage: string) => void;
+}) => {
 	const queryClient = useQueryClient();
 	return useMutation({
 		mutationFn: registerWithEmailAndPassword,
 		onSuccess: (data) => {
 			queryClient.setQueryData(userQueryKey, data.User);
 			onSuccess?.();
+		},
+		onError: (error) => {
+			onError(error.message);
 		},
 	});
 };
