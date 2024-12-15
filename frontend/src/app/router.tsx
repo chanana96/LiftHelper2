@@ -5,12 +5,14 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useMemo, Suspense } from 'react';
 import { Layout } from '@components/Layout';
 import { NotFound } from 'routes/NotFound';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const createAppRouter = (queryClient: QueryClient) =>
 	createBrowserRouter([
 		{
 			element: (
 				<Layout>
+					<ReactQueryDevtools client={queryClient} />
 					<Outlet />
 				</Layout>
 			),

@@ -29,28 +29,18 @@ export const LoginForm = ({ onSuccess }) => {
 	return (
 		<>
 			<Container maxWidth='sm'>
-				<form onSubmit={handleSubmit(submitHandler)} style={{ marginTop: '5vh' }}>
-					<Box
-						sx={{
-							boxShadow: 3,
-							padding: 2,
-							bgcolor: '#656565',
-							color: 'text.primary',
-						}}>
-						<div style={{ flex: '6' }}>
-							<Typography component='h1' variant='h5' sx={{ mb: '20' }}>
+				<form onSubmit={handleSubmit(submitHandler)} className='mt-28 '>
+					<Box className='shadow-md p-4 bg-form-bg text-primary'>
+						<div className='flex-1'>
+							<Typography component='h1' variant='h5' className='pb-2'>
 								LOG IN
 							</Typography>
 
 							<Grid
 								container
 								spacing={2}
-								style={{
-									display: 'flex',
-									alignItems: 'center',
-									justifyContent: 'center',
-								}}>
-								<Grid size={{ md: 12, xs: 8 }}>
+								className='flex items-center justify-center mb-2'>
+								<Grid className='w-full md:w-full xs:w-2/3'>
 									<TextField
 										{...register('Email', { required: true })}
 										label='Email'
@@ -60,10 +50,11 @@ export const LoginForm = ({ onSuccess }) => {
 										autoFocus
 										autoComplete='username'
 										type='text'
+										className='w-full'
 									/>
 								</Grid>
 
-								<Grid size={{ md: 12, xs: 8 }}>
+								<Grid className='w-full md:w-full xs:w-2/3'>
 									<TextField
 										{...register('Password', { required: true, minLength: 8 })}
 										label='Password'
@@ -72,15 +63,16 @@ export const LoginForm = ({ onSuccess }) => {
 										required
 										autoComplete='password'
 										type='password'
+										className='w-full'
 									/>
 								</Grid>
 
-								<Grid size={{ md: 12, xs: 8 }}>
+								<Grid className='w-full md:w-full xs:w-2/3'>
 									<Button
 										type='submit'
 										fullWidth
 										variant='contained'
-										sx={{ mt: 3, mb: 2 }}>
+										className='mt-3 mb-4 w-full'>
 										Log in
 									</Button>
 								</Grid>

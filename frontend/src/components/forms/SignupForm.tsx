@@ -1,12 +1,14 @@
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import { Link } from 'react-router-dom';
+import {
+	Button,
+	TextField,
+	FormControlLabel,
+	Checkbox,
+	Typography,
+	Container,
+	Box,
+} from '@mui/material';
 import Grid from '@mui/material/Grid2';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
+import { Link } from 'react-router-dom';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useSignup } from 'lib/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -33,33 +35,23 @@ export const SignupForm = ({ onSuccess, onError }) => {
 	return (
 		<>
 			<Container maxWidth='sm'>
-				<form onSubmit={handleSubmit(submitHandler)} style={{ marginTop: '5vh' }}>
+				<form onSubmit={handleSubmit(submitHandler)} className='mt-28'>
 					<FormAlert
 						show={formAlert.hasErrors}
 						message={formAlert.errorMessage}
 						onClose={formAlert.handleClearErrors}
 					/>
-					<Box
-						sx={{
-							boxShadow: 3,
-							padding: 2,
-							bgcolor: '#656565',
-							color: 'text.primary',
-						}}>
-						<div style={{ flex: '6' }}>
-							<Typography component='h1' variant='h5' sx={{ mb: '20' }}>
+					<Box className='shadow-md p-4 bg-form-bg text-primary'>
+						<div className='flex-6'>
+							<Typography component='h1' variant='h5' className='pb-2'>
 								SIGN UP
 							</Typography>
 
 							<Grid
 								container
 								spacing={2}
-								style={{
-									display: 'flex',
-									alignItems: 'center',
-									justifyContent: 'center',
-								}}>
-								<Grid size={{ md: 12, xs: 8 }}>
+								className='flex items-center justify-center mb-2'>
+								<Grid className='w-full md:w-full xs:w-2/3'>
 									<TextField
 										{...register('Email')}
 										label='Email'
@@ -68,10 +60,11 @@ export const SignupForm = ({ onSuccess, onError }) => {
 										required
 										autoComplete='email'
 										type='email'
+										className='w-full'
 									/>
 								</Grid>
 
-								<Grid size={{ md: 12, xs: 8 }}>
+								<Grid className='w-full md:w-full xs:w-2/3'>
 									<TextField
 										{...register('Password')}
 										label='Password'
@@ -80,9 +73,10 @@ export const SignupForm = ({ onSuccess, onError }) => {
 										required
 										autoComplete='new-password'
 										type='password'
+										className='w-full'
 									/>
 								</Grid>
-								<Grid size={{ md: 12, xs: 8 }}>
+								<Grid className='w-full md:w-full xs:w-2/3'>
 									<TextField
 										{...register('ConfirmPassword')}
 										label='Confirm Password'
@@ -91,9 +85,10 @@ export const SignupForm = ({ onSuccess, onError }) => {
 										required
 										autoComplete='new-password'
 										type='password'
+										className='w-full'
 									/>
 								</Grid>
-								<Grid size={{ md: 12, xs: 8 }}>
+								<Grid className='w-full md:w-full xs:w-2/3'>
 									<FormControlLabel
 										control={
 											<Checkbox
@@ -107,12 +102,12 @@ export const SignupForm = ({ onSuccess, onError }) => {
 									/>
 								</Grid>
 
-								<Grid size={{ md: 12, xs: 8 }}>
+								<Grid className='w-full md:w-full xs:w-2/3'>
 									<Button
 										type='submit'
 										fullWidth
 										variant='contained'
-										sx={{ mt: 3, mb: 2 }}>
+										className='mt-3 mb-2'>
 										Sign Up
 									</Button>
 								</Grid>

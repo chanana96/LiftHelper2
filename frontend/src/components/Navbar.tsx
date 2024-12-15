@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 export const Navbar = () => {
 	return (
-		<Box sx={{ flexGrow: 1 }}>
+		<Box className='flex-grow'>
 			<AppBar position='fixed'>
 				<Toolbar>
 					<IconButton
@@ -18,12 +18,11 @@ export const Navbar = () => {
 						edge='start'
 						color='inherit'
 						aria-label='menu'
-						sx={{ mr: 2 }}>
+						className='mr-2'>
 						<MenuIcon />
 					</IconButton>
 
-					<Typography variant='h6' component='div' sx={{ flexGrow: 1, color: '#ffffff' }}>
-						{' '}
+					<Typography variant='h6' component='div' className='flex-grow text-white'>
 						<Link to='/'>Lifthelper</Link>
 					</Typography>
 

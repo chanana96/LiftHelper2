@@ -19,14 +19,5 @@ export const ModelViewer = () => {
 		return () => cleanup(scene, renderer, controls);
 	}, []);
 
-	return (
-		<div
-			ref={containerRef}
-			style={{
-				position: 'relative',
-				width: '100%',
-				height: '600px',
-			}}
-		/>
-	);
+	return <div ref={containerRef} className='relative w-full h-[600px]' />;
 };

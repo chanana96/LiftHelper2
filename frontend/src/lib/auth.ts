@@ -22,6 +22,7 @@ export const useSignup = ({
 		mutationFn: registerWithEmailAndPassword,
 		onSuccess: (data) => {
 			queryClient.setQueryData(userQueryKey, data.User);
+			console.log(queryClient);
 			onSuccess?.();
 		},
 		onError: (error) => {

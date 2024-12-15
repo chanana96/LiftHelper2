@@ -32,8 +32,8 @@ namespace api.Services
             user.HashedPassword = hashedPassword;
             user.CreatedAt = DateTime.UtcNow;
             user.AllowEmails = request.AllowEmails;
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
+            // _context.Users.Add(user);
+            // await _context.SaveChangesAsync();
             return user;
         }
     }

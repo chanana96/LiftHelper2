@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using api.Data;
 using api.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace api
 {
@@ -8,6 +11,7 @@ namespace api
     {
         public static void Main(string[] args)
         {
+
             var builder = WebApplication.CreateBuilder(args);
             var Origins = "_Origins";
 
